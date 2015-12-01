@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER Bruno Binet <bruno.binet@helioslite.com>
+MAINTAINER Analogic s.r.o. <info@analogic.cz>
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -17,7 +17,7 @@ RUN curl -fSL -A "Mozilla/4.0" -o /tmp/xc32.run "http://www.microchip.com/mplabx
     && /tmp/xc32.run --mode unattended --unattendedmodeui none \
         --netservername localhost --LicenseType FreeMode \
     && rm /tmp/xc32.run
-ENV PATH /opt/microchip/xc16/v1.25/bin:$PATH
+ENV PATH /opt/microchip/xc32/v1.40/bin:$PATH
 
 # Download and install MPLAB X IDE
 RUN curl -fSL -A "Mozilla/4.0" -o /tmp/mplabx-installer.tar "http://www.microchip.com/mplabx-ide-linux-installer" \
@@ -25,12 +25,6 @@ RUN curl -fSL -A "Mozilla/4.0" -o /tmp/mplabx-installer.tar "http://www.microchi
     && USER=root ./*-installer.sh --nox11 \
         -- --unattendedmodeui none --mode unattended \
     && rm ./*-installer.sh
-
-# Download and install Harmony
-RUN curl -fSL -A "Mozilla/4.0" -o /tmp/harmony.run "http://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en584410" \
-    && chmod a+x /tmp/harmony.run
-RUN /tmp/harmony.run --mode unattended --unattendedmodeui none && rm /tmp/harmony.run
-
+    
 VOLUME ["/tmp/.X11-unix"]
-
 CMD ["/usr/bin/mplab_ide"]
