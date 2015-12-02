@@ -29,7 +29,7 @@ RUN curl -fSL -A "Mozilla/4.0" -o /tmp/mplabx-installer.tar "http://www.microchi
 # Harmony
 RUN curl -fSL -A "Mozilla/4.0" -o /tmp/harmony.run "http://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en584410" \
     && chmod a+x /tmp/harmony.run \
-    && /tmp/harmony.run --mode unattended --unattendedmodeui none && rm /tmp/harmony.run
+    && /tmp/harmony.run --mode unattended --unattendedmodeui none --prefix /opt && rm /tmp/harmony.run
     
 VOLUME ["/tmp/.X11-unix"]
 CMD ["/usr/bin/mplab_ide"]
